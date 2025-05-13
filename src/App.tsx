@@ -8,6 +8,8 @@ import type { IProduct } from "./interfaces"
 import { productValidation } from "./Validation"
 import ErrorMessage from "./components/ErrorMessage"
 import CircleColors from "./components/CircleColors"
+import { v4 as uuid } from 'uuid';
+
 
 const App = () => {
   const defaultProductObject = {
@@ -22,12 +24,12 @@ const App = () => {
     }
   }
 
+  const [products, setProducts] = useState<IProduct[]>(productList)
   const [product, setProduct] = useState<IProduct>(defaultProductObject)
   const [errors, setErrors] = useState({
     title: "", description: "", imageURL: "", price: "",
   })
   const [tempColors, setTempColors] = useState<string[]>([])
-  console.log(tempColors)
   const [isOpen, setIsOpen] = useState(false)
 
   const closeModel = () => setIsOpen(false)
@@ -58,9 +60,13 @@ const App = () => {
       return
     }
 
+    setProducts(prev => [{ ...product, id: uuid(), colors: tempColors }, ...prev])
+    setProduct(defaultProductObject)
+    setTempColors([])
+    closeModel()
   }
 
-  const renderProductList = productList.map(product => <ProductCard key={product.id} product={product} />)
+  const renderProductList = products.map(product => <ProductCard key={product.id} product={product} />)
   const renderFormInputList = formInputsList.map(input =>
     <div className="flex flex-col" key={input.id}>
       <label htmlFor={input.id} className="mb-2 text-sm font-medium text-gray-700">{input.label}</label>
@@ -68,13 +74,18 @@ const App = () => {
       <ErrorMessage msg={errors[input.name]} />
     </div>)
 
-  const renderProductColors = colors.map(colors => <CircleColors key={colors} colors={colors} onClick={() => {
-    if (tempColors.includes(colors)) {
-      setTempColors(prev => prev.filter(item => item !== colors))
-      return
-    }
-    setTempColors((prev) => [...prev, colors])
-  }} />)
+  const renderProductColors = colors.map(colors =>
+    <CircleColors
+      key={colors}
+      colors={colors}
+      onClick={() => {
+        if (tempColors.includes(colors)) {
+          setTempColors(prev => prev.filter(item => item !== colors))
+          return
+        }
+        setTempColors((prev) => [...prev, colors])
+      }}
+    />)
 
   return (
     <main className="container">
