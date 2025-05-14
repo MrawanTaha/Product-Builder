@@ -9,6 +9,7 @@ import { productValidation } from "./Validation"
 import ErrorMessage from "./components/ErrorMessage"
 import CircleColors from "./components/CircleColors"
 import { v4 as uuid } from 'uuid';
+import Select from "./components/UI/Select"
 
 
 const App = () => {
@@ -98,6 +99,7 @@ const App = () => {
           {renderFormInputList}
           <div className="flex items-center my-4 flex-wrap space-x-1">{tempColors.map(colors => <span key={colors} className="p-1 mr-1 mb-1 text-xs rounded-md text-white" style={{ backgroundColor: colors }}>{colors}</span>)}</div>
           <div className="flex items-center my-4 flex-wrap space-x-1">{renderProductColors}</div>
+          <Select/>
           <div className="flex items-center space-x-3">
             <Button className="bg-indigo-700 hover:bg-indigo-800">Submit</Button>
             <Button className="bg-gray-400 hover:bg-gray-500" onClick={OnCancel}>Cancel</Button>
