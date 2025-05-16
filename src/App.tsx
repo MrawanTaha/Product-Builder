@@ -1,7 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from "react"
 import ProductCard from "./components/ProductCard"
 import Model from "./components/UI/Model"
-import { colors, formInputsList, productList } from "./data"
+import { categories, colors, formInputsList, productList } from "./data"
 import Button from "./components/UI/Button"
 import Input from "./components/UI/Input"
 import type { IProduct } from "./interfaces"
@@ -32,6 +32,7 @@ const App = () => {
   })
   const [tempColors, setTempColors] = useState<string[]>([])
   const [isOpen, setIsOpen] = useState(false)
+  const [selectedCategory, setSelectedCategory] = useState(categories[0])
 
   const closeModel = () => setIsOpen(false)
   const openModel = () => setIsOpen(true)
@@ -61,7 +62,7 @@ const App = () => {
       return
     }
 
-    setProducts(prev => [{ ...product, id: uuid(), colors: tempColors }, ...prev])
+    setProducts(prev => [{ ...product, id: uuid(), colors: tempColors, category: selectedCategory }, ...prev])
     setProduct(defaultProductObject)
     setTempColors([])
     closeModel()
@@ -90,16 +91,16 @@ const App = () => {
 
   return (
     <main className="container">
-      <Button className="block bg-indigo-700 hover:bg-indigo-800 mx-auto my-10 px-10 font-medium" onClick={openModel} width="w-fit">ADD</Button>
+      <Button className="block bg-indigo-700 hover:bg-indigo-800 mx-auto my-10 px-10 font-medium" onClick={openModel} width="w-fit">Build a Product</Button>
       <div className="m-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4 p-2 rounded-md">
         {renderProductList}
       </div>
       <Model isOpen={isOpen} close={closeModel} title="ADD A NEW PRODUCT">
         <form className="space-y-3" onSubmit={submitHandler}>
           {renderFormInputList}
+          <Select selected={selectedCategory} setSelected={setSelectedCategory} />
           <div className="flex items-center my-4 flex-wrap space-x-1">{tempColors.map(colors => <span key={colors} className="p-1 mr-1 mb-1 text-xs rounded-md text-white" style={{ backgroundColor: colors }}>{colors}</span>)}</div>
           <div className="flex items-center my-4 flex-wrap space-x-1">{renderProductColors}</div>
-          <Select/>
           <div className="flex items-center space-x-3">
             <Button className="bg-indigo-700 hover:bg-indigo-800">Submit</Button>
             <Button className="bg-gray-400 hover:bg-gray-500" onClick={OnCancel}>Cancel</Button>
