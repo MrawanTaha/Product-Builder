@@ -4,16 +4,26 @@ import CircleColors from "./CircleColors"
 import Image from "./Image"
 import Button from "./UI/Button"
 interface IProps {
-    product: IProduct
+    product: IProduct,
+    setProductToEdit: (product: IProduct) => void,
+    openEditModel: () => void
+    setProductToEditIdx: (value: number) => void,
+    idx: number
 }
 
-const ProductCard = ({ product }: IProps) => {
+const ProductCard = ({ product, setProductToEdit, openEditModel, idx, setProductToEditIdx }: IProps) => {
     const { description, imageURL, price, title, colors, category } = product
     const renderProductColors = colors.map(colors =>
         <CircleColors
             key={colors}
             colors={colors}
         />)
+
+    const onEdit = () => {
+        setProductToEdit(product)
+        openEditModel()
+        setProductToEditIdx(idx)
+    }
 
     return (
         <div className="max-w-sm md:max-w-lg mx-auto md:mx-0 border rounded-md p-2 flex flex-col space-y-3">
@@ -34,7 +44,7 @@ const ProductCard = ({ product }: IProps) => {
                     className="w-10 h-10 rounded-full object-bottom" />
             </div>
             <div className="flex items-center justify-between space-x-2">
-                <Button className="bg-indigo-700 hover:bg-indigo-800">EDIT</Button>
+                <Button className="bg-indigo-700 hover:bg-indigo-800" onClick={onEdit}>EDIT</Button>
                 <Button className="bg-[#c2344d] hover:bg-red-800">Delete</Button>
             </div>
         </div>

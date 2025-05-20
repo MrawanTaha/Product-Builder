@@ -5,11 +5,11 @@ import { categories } from '../../data'
 import type { ICategory } from '../../interfaces'
 
 interface IProps {
-    selected: ICategory;
+    selected: { name: string, imageURL: string };
     setSelected: (category: ICategory) => void
 }
 
-const Select = ({selected,setSelected}:IProps) => {
+const Select = ({ selected, setSelected }: IProps) => {
 
     return (
         <Listbox value={selected} onChange={setSelected}>
@@ -17,7 +17,13 @@ const Select = ({selected,setSelected}:IProps) => {
             <div className="relative">
                 <ListboxButton className="grid w-full cursor-default grid-cols-1 rounded-lg bg-white py-3 pr-3 pl-3 text-left text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 text-md border-gray-300 shadow-md">
                     <span className="col-start-1 row-start-1 flex items-center gap-3 pr-6">
-                        <img alt="" src={selected.imageURL} className="size-6 shrink-0 rounded-full" />
+                        {selected.imageURL && (
+                            <img
+                                alt=""
+                                src={selected.imageURL}
+                                className="size-6 shrink-0 rounded-full"
+                            />
+                        )}
                         <span className="block truncate">{selected.name}</span>
                     </span>
                     <ChevronUpDownIcon
