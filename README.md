@@ -1,55 +1,115 @@
-# React + TypeScript + Vite + Tailwind CSS
+# Product Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A customizable and responsive product builder for your online store.
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Overview](#overview)
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Expanding the ESLint configuration
+## Overview
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Product Builder is a web application designed to provide users with an interactive platform to customize products in real-time. Built with modern technologies like React, TypeScript, Vite, and Tailwind CSS, it ensures a seamless and efficient user experience.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Features
+
+- **Real-time Customization**: Users can personalize products and see changes instantly.
+- **Responsive Design**: Optimized for various devices, ensuring accessibility on desktops, tablets, and mobile phones.
+- **Modular Architecture**: Clean and maintainable codebase with a focus on scalability.
+- **Modern Tech Stack**: Leveraging the latest tools and frameworks for optimal performance.
+
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v14 or higher)
+- [Yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/)
+
+### Installation
+
+1. **Clone the repository**:
+
+   ```bash
+   git clone https://github.com/MrawanTaha/Product-Builder.git
+   cd Product-Builder
+   ```
+
+2. **Install dependencies**:
+
+   Using Yarn:
+
+   ```bash
+   yarn install
+   ```
+
+   Or using npm:
+
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**:
+
+   Using Yarn:
+
+   ```bash
+   yarn dev
+   ```
+
+   Or using npm:
+
+   ```bash
+   npm run dev
+   ```
+
+   The application will be available at `http://localhost:3000`.
+
+## Project Structure
+
+```
+Product-Builder/
+├── public/             # Static assets
+├── src/                # Source code
+│   ├── components/     # Reusable components
+│   ├── pages/          # Page components
+│   ├── styles/         # Tailwind CSS configurations
+│   └── main.tsx        # Application entry point
+├── index.html          # Main HTML file
+├── package.json        # Project metadata and scripts
+├── tailwind.config.js  # Tailwind CSS configuration
+├── tsconfig.json       # TypeScript configuration
+└── vite.config.ts      # Vite configuration
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Contributing
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Contributions are welcome! Please follow these steps:
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
-# Product-Builder
+1. **Fork the repository**.
+2. **Create a new branch**:
+
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+3. **Commit your changes**:
+
+   ```bash
+   git commit -m "Add your message here"
+   ```
+
+4. **Push to the branch**:
+
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
+5. **Open a Pull Request**.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
