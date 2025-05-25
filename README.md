@@ -89,7 +89,8 @@ Product-Builder/
 
 Contributions are welcome! Please follow these steps:
 
-1. **Fork the repository**.
+1. **Fork the repository**  
+   Click the **Fork** button at the top-right corner of the [Product-Builder GitHub page](https://github.com/MrawanTaha/Product-Builder) to create a copy of the repository under your own GitHub account. This allows you to freely make changes without affecting the original project.
 2. **Create a new branch**:
 
    ```bash
@@ -108,7 +109,8 @@ Contributions are welcome! Please follow these steps:
    git push origin feature/your-feature-name
    ```
 
-5. **Open a Pull Request**.
+5. **Open a Pull Request**  
+   Once your changes are ready, go to your forked repository on GitHub and click **Compare & pull request**. Provide a clear title and description of your changes. The maintainers will review your contribution and may suggest improvements or merge it into the main project.
 
 ## License
 
