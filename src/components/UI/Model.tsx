@@ -5,11 +5,13 @@ interface IProps {
     isOpen: boolean,
     close: () => void,
     title?: string,
-    children: ReactNode
+    children: ReactNode,
+    description?: string;
+
 
 }
 
-const Model = ({ isOpen, close, title, children }: IProps) => {
+const Model = ({ isOpen, close, title, children, description }: IProps) => {
 
 
     return (
@@ -26,6 +28,7 @@ const Model = ({ isOpen, close, title, children }: IProps) => {
                                     {title}
                                 </DialogTitle>
                             }
+                            {description && <p className="text-sm text-gray-500 mt-3">{description}</p>}
                             <div className="mt-4">
                                 {children}
                             </div>

@@ -11,6 +11,7 @@ import CircleColors from "./components/CircleColors"
 import { v4 as uuid } from 'uuid';
 import Select from "./components/UI/Select"
 import type { TProductNames } from "./types"
+import toast, { Toaster } from "react-hot-toast"
 
 
 const App = () => {
@@ -36,12 +37,15 @@ const App = () => {
   const [tempColors, setTempColors] = useState<string[]>([])
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenEditModel, setIsOpenEditModel] = useState(false)
+  const [isOpenConfirmModel, setIsOpenConfirmModel] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState(categories[0])
 
   const closeModel = () => setIsOpen(false)
   const openModel = () => setIsOpen(true)
   const closeEditModel = () => setIsOpenEditModel(false)
   const openEditModel = () => setIsOpenEditModel(true)
+  const closeConfirmModel = () => setIsOpenConfirmModel(false)
+  const openConfirmModel = () => setIsOpenConfirmModel(true)
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target
     setProduct({
@@ -68,6 +72,12 @@ const App = () => {
     setProduct(defaultProductObject)
     closeModel()
   }
+  const removeProductHandeler = () => {
+    const filtered = products.filter(product => product.id !== productToEdit.id)
+    setProducts(filtered)
+    closeConfirmModel()
+    toast("Product has been deleted successfully!")
+  }
   const submitHandler = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
     const { title, description, imageURL, price } = product
@@ -83,6 +93,8 @@ const App = () => {
     setProduct(defaultProductObject)
     setTempColors([])
     closeModel()
+    toast("Product has been added successfully!")
+
   }
 
   const submitEditHandler = (e: FormEvent<HTMLFormElement>): void => {
@@ -101,6 +113,8 @@ const App = () => {
     setProductToEdit(defaultProductObject)
     setTempColors([])
     closeEditModel()
+    toast("Product has been updated successfully!")
+
   }
 
   const renderProductList = products.map((product, idx) =>
@@ -110,7 +124,8 @@ const App = () => {
       setProductToEdit={setProductToEdit}
       openEditModel={openEditModel}
       idx={idx}
-      setProductToEditIdx={setProductToEditIdx} />
+      setProductToEditIdx={setProductToEditIdx}
+      openConfirmModel={openConfirmModel} />
   )
   const renderFormInputList = formInputsList.map(input =>
     <div className="flex flex-col" key={input.id}>
@@ -168,6 +183,21 @@ const App = () => {
           </div>
         </form>
       </Model >
+      {/* <Model isOpen={isOpenConfirmModel} close={closeConfirmModel} title="ADD A NEW PRODUCT"> */}
+      <Model
+        isOpen={isOpenConfirmModel}
+        close={closeConfirmModel}
+        title="Are you sure you want to remove this Product from your Store?"
+        description="Deleting this product will remove it permanently from your inventory. Any associated data, sales history, and other related information will also be deleted. Please make sure this is the intended action.">
+        <div className="flex items-center space-x-3">
+          <Button className="bg-[#c2344d] hover:bg-red-800" onClick={removeProductHandeler}>
+            Yes, remove
+          </Button>
+          <Button type="button" className="bg-[#f5f5fa] hover:bg-gray-300 !text-black" onClick={closeConfirmModel}>
+            Cancel
+          </Button>
+        </div>
+      </Model >
       <Model isOpen={isOpenEditModel} close={closeEditModel} title="EDIT PRODUCT">
         <form className="space-y-3" onSubmit={submitEditHandler}>
           {renderProductEditWithErrorMsg('title', 'Product Title', 'title')}
@@ -193,13 +223,14 @@ const App = () => {
               Submit
             </Button>
             <Button
-              className="bg-gray-400 hover:bg-gray-500"
+              className="!text-black bg-gray-200 hover:bg-gray-300"
               onClick={OnCancel}>
               Cancel
             </Button>
           </div>
         </form>
       </Model >
+      <Toaster />
     </main>
 
   )

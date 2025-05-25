@@ -9,3 +9,7 @@ export function textSlicer(txt: string, maxLen: number = 80) {
     if (txt.length >= maxLen) return `${txt.slice(0, maxLen)}..`;
     return txt
 }
+
+export function numberWithCommas(x: string): string {
+  return x?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
